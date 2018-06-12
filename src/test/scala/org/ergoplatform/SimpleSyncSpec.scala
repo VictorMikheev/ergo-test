@@ -98,7 +98,7 @@ class SimpleSyncSpec extends TestKit(ActorSystem("BlockChainNodeSpec")) with Imp
 
       val node = system.actorOf(BlockChainNodeActor.props(blockChainWithOnlyGenesis, Seq.empty))
 
-      nodesWithDifferentBlockChains.foreach(node => node ! ConnectTo(node))
+      nodesWithDifferentBlockChains.foreach(n => n ! ConnectTo(node))
 
       expectNoMessage(1.second)
 

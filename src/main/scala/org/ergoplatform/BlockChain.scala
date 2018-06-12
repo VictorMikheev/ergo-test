@@ -25,7 +25,12 @@ case class BlockChain private(blocks: ListMap[String, Block] = ListMap.empty) ex
       case Left(error) =>
         Failure(new IllegalArgumentException(s"Invalid block $b for chain $this: ${error.msg}"))
       case Right(b) =>
-        Success(new BlockChain(blocks + (b.id -> b)))
+        val newBlockChain = if (contains(b)) {
+          this
+        } else {
+          new BlockChain(blocks + (b.id -> b))
+        }
+        Success(newBlockChain)
     }
   }
 
